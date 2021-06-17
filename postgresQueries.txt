@@ -1,0 +1,37 @@
+create table query_table(
+	id serial PRIMARY KEY,
+	question character varying(400) NOT NULL,
+ 	answer TEXT,
+	satisfied INTEGER DEFAULT 0 NOT NULL,
+	unsatisfied INTEGER DEFAULT 0 NOT NULL,
+	viewed INTEGER DEFAULT 0 NOT NULL,
+	queType character varying(50),
+
+	 CONSTRAINT fk_queType
+      FOREIGN KEY(queType) 
+	  REFERENCES QuesType(typename)
+ON DELETE CASCADE
+);
+CREATE TABLE list_unsat(
+	id serial PRIMARY KEY,
+	question text NOT NULL,
+	qid text NOT NULL
+);
+CREATE TABLE QuesType(
+id serial PRIMARY KEY,
+typename character varying(50) UNIQUE NOT NULL
+);
+
+insert into QuesType values(1,'is_canteen');
+INSERT INTO query_table VALUES (default,"How is the canteen","pretty good at the start and then useless after some time",*,*,*,"is_canteen");
+
+
+INSERT INTO query_table(id,question,answer,quetype)
+VALUES (2,'how is process ','CAP rounds and management quota','is_admission');
+
+
+INSERT INTO list_unsat(question,qid)
+VALUES ('how is process ',1);
+
+
+SELECT questype.typename, (SELECT COUNT(quetype) FROM query_table WHERE query_table.quetype = questype.typename) AS count FROM questype;

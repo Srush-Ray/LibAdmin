@@ -1,0 +1,8 @@
+.AllQuestion_button {
+  border: 0;
+  background-color: transparent;
+}
+.AllQuestion_button:active {
+  border: 0;
+  background-color: transparent;
+}
